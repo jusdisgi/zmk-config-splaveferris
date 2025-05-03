@@ -3,7 +3,7 @@
 
 if SHIELD_SPLAVE-FERRIS_LEFT
 
-config ZMK_SPLAVE-FERRIS
+config ZMK_KEYBOARD_NAME
     default "Splave-Ferris"
 
 config ZMK_SPLIT_ROLE_CENTRAL
