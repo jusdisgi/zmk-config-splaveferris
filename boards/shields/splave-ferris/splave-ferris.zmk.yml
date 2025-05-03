@@ -1,0 +1,13 @@
+file_format: "1"
+id: splave-ferris
+name: Splave-Ferris
+type: shield
+url: https://github.com/jusdisgi/splave-ferris
+requires: [seeed_xiao]
+exposes: [i2c_oled]
+features:
+  - keys
+  - studio
+siblings:
+  - splave-ferris_left
+  - splave-ferris_right
