@@ -5,9 +5,9 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <layouts/cuddlykeyboards/ferris.dtsi>
+#include <splaveferris-layouts.dtsi>
 
-&cuddlykeyboards_ferris_layout {
+&physical_layout0 {
     transform = <&default_transform>;
 };
 
