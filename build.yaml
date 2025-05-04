@@ -20,6 +20,7 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: splaveferris_left
-  - board: seeeduino_xiao_ble
-    shield: splaveferris_right
+    shield: splaveferris
+  #   shield: splaveferris_left
+  # - board: seeeduino_xiao_ble
+  #   shield: splaveferris_right
