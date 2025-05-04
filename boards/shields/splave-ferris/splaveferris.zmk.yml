@@ -1,6 +1,6 @@
 file_format: "1"
-id: splave-ferris
-name: Splave-Ferris
+id: splaveferris
+name: SplaveFerris
 type: shield
 url: https://github.com/jusdisgi/splave-ferris
 requires: [seeed_xiao]
@@ -9,5 +9,5 @@ features:
   - keys
   - studio
 siblings:
-  - splave-ferris_left
-  - splave-ferris_right
+  - splaveferris_left
+  - splaveferris_right

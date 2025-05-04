@@ -1,17 +1,17 @@
 # Copyright (c) 2020 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
-if SHIELD_SPLAVE-FERRIS_LEFT
+if SHIELD_SPLAVEFERRIS_LEFT
 
 config ZMK_KEYBOARD_NAME
-    default "Splave-Ferris"
+    default "SplaveFerris"
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
 endif
 
-if SHIELD_SPLAVE-FERRIS_LEFT || SHIELD_SPLAVE-FERRIS_RIGHT
+if SHIELD_SPLAVEFERRIS_LEFT || SHIELD_SPLAVEFERRIS_RIGHT
 
 config ZMK_SPLIT
     default y
