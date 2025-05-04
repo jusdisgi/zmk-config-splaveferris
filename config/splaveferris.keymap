@@ -30,11 +30,17 @@
             require-prior-idle-ms = <100>;
             bindings = <&btdis>, <&btsel>;
         };
-        tdto0: tap_dance_to_layer_0 {
+        tdshto0: tapdance_shift_tolayer0 {
             compatible = "zmk,behavior-tap-dance";
+            display-name = "TD Shift/L0";
             #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&none>, <&to 0>;
+            bindings = <&kp LEFT_SHIFT>, <&to 0>;
+        };
+        tdplto0: tapdance_plus_tolayer0 {
+            compatible = "zmk,behavior-tap-dance";
+            display-name = "TD +/L0";
+            #binding-cells = <0>;
+            bindings = <&kp EQUAL>, <&to 0>;
         };
     };
     macros {
@@ -58,6 +64,11 @@
     };
     combos {
         compatible = "zmk,combos";
+        combo_esc {
+            timeout-ms = <30>;
+            key-positions = <0 1>;
+            bindings = <&kp ESC>;
+        };
         combo_caps_word {
             timeout-ms = <30>;
             key-positions = <2 3>;
@@ -73,16 +84,41 @@
             key-positions = <0 1>;
             bindings = <&kp K_APP>;
         };
-        combo_navlock {
-            timeout-ms = <30>;
-            key-positions = <26 28>;
+        combo_navlock_on {
+            timeout-ms = <40>;
+            key-positions = <25 27>;
+            layers = <0>;
             bindings = <&to 3>;
         };
-        //This one is happening by accident a fair bit
-        combo_mouselock {
-            timeout-ms = <30>;
+        combo_navlock_off {
+            timeout-ms = <40>;
             key-positions = <25 27>;
+            layers = <3>;
+            bindings = <&to 0>;
+        };
+        combo_numlock_on {
+            timeout-ms = <40>;
+            key-positions = <26 28>;
+            layers = <0>;
+            bindings = <&to 1>;
+        };
+        combo_numlock_off {
+            timeout-ms = <40>;
+            key-positions = <26 28>;
+            layers = <1>;
+            bindings = <&to 0>;
+        };
+        combo_mouselock_on {
+            timeout-ms = <40>;
+            key-positions = <27 29>;
+            layers = <0>;
             bindings = <&to 4>;
+        };
+        combo_mouselock_off {
+            timeout-ms = <40>;
+            key-positions = <27 29>;
+            layers = <4>;
+            bindings = <&to 0>;
         };
     };
 
@@ -100,13 +136,13 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│  Q       │  W       │  F       │  P       │  B       │   │  J       │  L       │  U       │  Y       │ ' "      │
-            &kp Q      &kp W      &lt 4 F    &lt 3 P    &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SQT
+            &kp Q      &kp W      &lt 4 F    &lt 3 P    &kp B          &kp J      &lt 3 L    &lt 4 U    &kp Y      &kp SQT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  A       │  R       │  S       │  T       │  G       │   │  M       │  N       │  E       │  I       │ O        │
             HRML(A,        R,         S,         T)     &kp G          &kp M      HRMR(N,        E,         I,        O)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  Z       │  X       │  C       │  D       │  V       │   │  K       │  H       │ , <      │ . >      │ / ?      │
-            &lt 5 Z    &kp X      &lt 2 C    &lt 1 D    &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
+            &lt 5 Z    &kp X      &lt 2 C    &lt 1 D    &kp V          &kp K      &lt 1 H  &lt 2 COMMA  &kp DOT   &lt 5 FSLH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                             &kp TAB     &kp ENTER     &kp SPACE  &kp BSPC
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -116,16 +152,16 @@
         num_layer {
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ 1        │ 2        │ 3        │ 4        │ 5        │   │ 6        │ 7        │ 8        │ 9        │  0       │
+        //│ 1 !      │ 2 @      │ 3 #      │ 4 $      │ 5 %      │   │ 6 ^      │ 7 &      │ 8 *      │ 9 (      │  0 )     │
             &kp N1     &kp N2     &kp N3     &kp N4     &kp N5         &kp N6     &kp N7     &kp N8     &kp N9     &kp N0
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ DELETE   │ WINDERS  │ CAPS     │          │          │   │ / ?      │ 4        │ 5        │ 6        │  -       │
+        //│ DELETE   │ WINDERS  │ CAPS     │          │          │   │ / ?      │ 4 $      │ 5 %      │ 6 ^      │  -       │
             &kp DEL    &kp LGUI  &caps_word   &none      &none         &kp FSLH   &kp N4     &kp N5     &kp N6     &kp MINUS
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │This Layer│          │   │   *      │ 1        │ 2        │ 3        │  +       │
-           &kp LALT   &kp LCTRL  &kp LSHFT   &none      &none         &kp ASTRK   &kp N1     &kp N2     &kp N3     &kp PLUS
+        //│          │          │          │This Layer│          │   │ \ |      │ 1 !      │ 2 @      │ 3 #      │  +       │
+           &kp LALT   &kp LCTRL  &kp LSHFT   &none      &none         &kp BSLH   &kp N1     &kp N2     &kp N3     &tdplto0
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &kp ESC    &kp EQUAL       &kp N0     &kp DOT
+                                             &kp SEMI   &kp EQUAL       &kp N0     &kp DOT
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -139,8 +175,8 @@
         //│          │          │          │          │          │   │  :       │  (       │  )       │  +       │  ;       │
             &none      &none     &none      &none       &none          &kp COLON  &kp LPAR   &kp RPAR   &kp PLUS   &kp SEMI
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │This Layer│ Not Del  │          │   │  &       │  !       │  @       │  #       │  `       │ Delete collided with num_layer LSHIFT
-            &none      &none      &none      &none      &none         &kp AMPS   &kp EXCL   &kp AT     &kp HASH   &kp GRAVE
+        //│          │          │This Layer│          │          │   │  &       │  |       │  @       │  #       │  `       │ Delete collided with num_layer LSHIFT
+            &none      &none      &none      &none      &none         &kp AMPS   &kp PIPE   &kp AT     &kp HASH   &kp GRAVE
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &kp LBKT    &kp RBKT      &kp LBRC   &kp RBRC
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -150,16 +186,16 @@
         nav_layer {
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │          │ Shift    │This Layer│          │   │ Page Up  │ Home     │    UP    │ End      │ Page Up  │
-           &none      &none       &kp LSHFT  &none      &none         &kp PG_UP   &kp HOME    &kp UP    &kp END    &kp PG_UP
+        //│          │          │ Shift    │This Layer│          │   │ Page Up  │ Home     │    UP    │ End      │ Alt      │
+           &none      &none       &kp LSHFT  &none      &none         &kp PG_UP   &kp HOME    &kp UP    &kp END    &kp RALT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │ Page Down│  LEFT    │   DOWN   │  RIGHT   │ Page Down│
-           &none      &none       &none       &none     &none         &kp PG_DN   &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN 
+        //│SHIFT + L0│          │          │          │          │   │ Page Down│  LEFT    │   DOWN   │  RIGHT   │ Ctrl     │
+           &tdshto0   &none       &none       &none     &none         &kp PG_DN   &kp LEFT   &kp DOWN   &kp RIGHT  &kp RCTRL 
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │   │ Alt      │ Home     │ Insert   │ End      │Dbl tap L0│
-           &mo 5      &none       &none       &none     &kp SPACE      &kp RALT   &kp RALT   &kp INS    &kp END    &tdto0
+        //│          │          │          │          │          │   │ Alt      │ Home     │ Insert   │ End      │SHIFT + L0│
+           &mo 5      &none       &kp LEFT   &kp RIGHT  &kp SPACE      &kp RALT   &kp HOME   &kp INS    &kp END    &tdshto0
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                            &kp TAB     &kp ENTER     &kp RSHFT  &kp RCTRL
+                                            &kp TAB     &kp ENTER     &kp RSHFT  &kp SPACE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -168,13 +204,13 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮
         //│          │          │This Layer│ Control  │          │   │               │               │               │               │               │
-           &none      &none       &none      &kp LCTRL  &none         &msc SCRL_UP     &msc SCRL_LEFT  &mmv MOVE_UP   &msc SCRL_RIGHT  &msc SCRL_UP
+           &none      &none       &none      &kp LCTRL  &none         &msc SCRL_UP     &msc SCRL_LEFT  &mmv MOVE_UP   &msc SCRL_RIGHT  &kp RALT
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├───────────────┼───────────────┼───────────────┼───────────────┼───────────────┤
         //│          │          │          │  Shift   │          │   │               │               │               │               │               │
-           &none      &none       &none      &kp LSHFT  &none         &msc SCRL_DOWN   &mmv MOVE_LEFT  &mmv MOVE_DOWN &mmv MOVE_RIGHT  &msc SCRL_DOWN
+           &none      &none       &none      &kp LSHFT  &none         &msc SCRL_DOWN   &mmv MOVE_LEFT  &mmv MOVE_DOWN &mmv MOVE_RIGHT  &kp RCTRL
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├───────────────┼───────────────┼───────────────┼───────────────┼───────────────┤
-        //│          │          │          │  Alt     │          │   │               │ Control       │ Shift         │  Alt          │  Dbl tap L0   │
-           &none      &none       &none      &kp LALT   &none          &none           &kp RCTRL       &kp RSHFT       &kp RALT          &tdto0
+        //│          │          │          │  Alt     │          │   │               │ Control       │ Shift         │  Alt          │  SHIFT + L0   │
+           &none      &none       &none      &kp LALT   &none          &none           &kp RCTRL       &kp RSHFT       &kp RALT          &tdshto0
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├───────────────┼───────────────┼───────────────┴───────────────┴───────────────╯
                                             &kp ENTER   &mkp MCLK     &mkp LCLK        &mkp RCLK 
         //                                 ╰──────────┴──────────╯   ╰───────────────┴───────────────╯
